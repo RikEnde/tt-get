@@ -25,7 +25,7 @@ def get_content(html):
     content = soup.find('pre', attrs={'id': 'content'})
     if DEBUG:
         print content
-    return handle_line(content)
+    return print_tag(content)
 
 
 def print_tag(parent):
@@ -48,6 +48,7 @@ def print_tag(parent):
 def extract_colors(tag):
     return tag['class'].split(' ') if 'class' in dict(tag.attrs) else None
 
+
 def apply_colors(colors, txt):
     fg = 'white'
     bg = None
@@ -58,18 +59,6 @@ def apply_colors(colors, txt):
             else:
                 fg = c
     return colored(txt, fg, bg) 
-
-
-def handle_line(content):
-    lines = []
-    for tag in content.childGenerator():
-        if type(tag) == NavigableString:
-            lines.append(tag)
-        elif type(tag) == Tag:
-            lines.append(print_tag(tag))
-        else:
-            print type(tag)
-    return ''.join(lines)
 
 
 def unescape(text):

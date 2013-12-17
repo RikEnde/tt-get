@@ -1,0 +1,25 @@
+
+Haal een teletekst pagina op en toon deze in je console
+Dit werkt op Linux, BSD en OSX, en zou ook moeten werken op Windows (niet getest)
+
+Syntax:
+
+tt.py [pagina[/sub pagina]]
+
+Voorbeeld:
+
+tt.py 101
+tt.py 845/2
+
+Requirements zijn Python 2.x, BeautifulSoup, termcolor
+
+Known bugs: 
+- Bold White achtergrond kleur werkt niet
+- &amp; wordt niet goed geparsed
+- Regel met veel diacrieten heeft soms een verkeerde lengte
+- Achtergrondkleur vult soms niet de hele regel in pagina 100
+
+TODO:
+- Handle line en print tag samenvoegen tot 1 recursieve functie
+- Python 3 support
+- Interactieve mode

@@ -23,7 +23,8 @@ def get_content(html):
     soup = BeautifulSoup(html)
 
     content = soup.find('pre', attrs={'id': 'content'})
-    print content
+    if DEBUG:
+        print content
     return handle_line(content)
 
 

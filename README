@@ -20,6 +20,5 @@ Known bugs:
 - Achtergrondkleur vult soms niet de hele regel in pagina 100
 
 TODO:
-- Handle line en print tag samenvoegen tot 1 recursieve functie
 - Python 3 support
 - Interactieve mode

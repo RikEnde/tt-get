@@ -50,15 +50,17 @@ def extract_colors(tag):
 
 
 def apply_colors(colors, txt):
-    fg = 'white'
-    bg = None
     if colors:
+        fg = 'white'
+        bg = None
         for c in colors:
             if c.startswith('bg-'):
                 bg = 'on_' + c[3:]
             else:
                 fg = c
-    return colored(txt, fg, bg) 
+        return colored(txt, fg, bg) 
+    else:
+        return txt
 
 
 def unescape(text):

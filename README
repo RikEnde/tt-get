@@ -11,14 +11,11 @@ Voorbeeld:
 tt.py 101
 tt.py 845/2
 
-Requirements zijn Python 2.x, BeautifulSoup, termcolor
+Requirements zijn Python 3.x, BeautifulSoup 4, termcolor, urllib3
 
 Known bugs: 
 - Bold White achtergrond kleur werkt niet
-- &amp; wordt niet goed geparsed
-- Regel met veel diacrieten heeft soms een verkeerde lengte
 - Achtergrondkleur vult soms niet de hele regel in pagina 100
 
 TODO:
-- Python 3 support
 - Interactieve mode

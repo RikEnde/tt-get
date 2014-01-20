@@ -1,31 +1,22 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-import urllib2
+import urllib.request as request
 import sys
-from BeautifulSoup import BeautifulSoup, Tag, NavigableString
-
-DEBUG=False
-
-if DEBUG:
-    def colored(txt, fg, bg):
-        return "[%s][%s]%s[RS]" % (fg, bg, txt)
-else:
-    from termcolor import colored
+from bs4 import BeautifulSoup, Tag, NavigableString
+from termcolor import colored
 
 
 def main(html):
-    data = urllib2.urlopen(html).read()
+    data = request.urlopen(html).read()
     content = get_content(data)
-    print unescape(content)
+    print(unescape(content))
 
 
 def get_content(html):
     soup = BeautifulSoup(html)
 
     content = soup.find('pre', attrs={'id': 'content'})
-    if DEBUG:
-        print content
-    return print_tag(content)
+    return handle_line(content)
 
 
 def print_tag(parent):
@@ -46,25 +37,34 @@ def print_tag(parent):
 
 
 def extract_colors(tag):
-    return tag['class'].split(' ') if 'class' in dict(tag.attrs) else None
-
+    return tag['class'] if 'class' in dict(tag.attrs) else None
 
 def apply_colors(colors, txt):
+    fg = 'white'
+    bg = None
     if colors:
-        fg = 'white'
-        bg = None
         for c in colors:
             if c.startswith('bg-'):
                 bg = 'on_' + c[3:]
             else:
                 fg = c
-        return colored(txt, fg, bg) 
-    else:
-        return txt
+    return colored(txt, fg, bg) 
+
+
+def handle_line(content):
+    lines = []
+    for tag in content.childGenerator():
+        if type(tag) == NavigableString:
+            lines.append(tag)
+        elif type(tag) == Tag:
+            lines.append(print_tag(tag))
+        else:
+            print(type(tag))
+    return ''.join(lines)
 
 
 def unescape(text):
-    return unicode(BeautifulSoup(text, convertEntities=["xml", "html"]))
+    return BeautifulSoup(text)
 
 
 if __name__ == '__main__':
